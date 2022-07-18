@@ -1,0 +1,86 @@
+<div class="f">
+    <br>
+    <button mat-flat-button (click)="showForm()" color="primary">Crear</button>
+    <br>
+    <div *ngIf="mostrarForm">
+        <form [formGroup]="myForm" novalidate>
+            <mat-dialog-content>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Titulo</mat-label>
+                            <input formControlName="vTitulo" matInput [(ngModel)]="noticia.titulo">
+                        </mat-form-field>
+                        <app-print-error [control]="f.vTitulo"></app-print-error>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Fuente</mat-label>
+                            <input formControlName="vFuente" matInput [(ngModel)]="noticia.fuente">
+                        </mat-form-field>
+                        <app-print-error [control]="f.vFuente"></app-print-error>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Contenido</mat-label>
+                            <input formControlName="vContenido" matInput [(ngModel)]="noticia.contenido">
+                        </mat-form-field>
+                        <app-print-error [control]="f.vContenido"></app-print-error>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Imagen</mat-label>
+                            <input formControlName="vImagenes" matInput [(ngModel)]="noticia.imagenes">
+                        </mat-form-field>
+                        <app-print-error [control]="f.vImagenes"></app-print-error>
+                    </div>
+                    <div class="col-md-12">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Secciones</mat-label>
+                            <mat-select formControlName="vSecciones" [(ngModel)]="noticia.secciones" multiple>
+                                <mat-option *ngFor="let seccion of listaSecciones" [value]="seccion">{{seccion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <app-print-error [control]="f.vSecciones"></app-print-error>
+                    </div>
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions *ngIf="!editando" align="end">
+                <button mat-flat-button (click)="ocultar()">Cancelar</button>
+                <button mat-flat-button (click)="postNoticia()" color="primary"
+                    [disabled]="myForm.invalid || !myForm.dirty" cdkFocusInitial>Guardar</button>
+            </mat-dialog-actions>
+            <mat-dialog-actions *ngIf="editando" align="end">
+                <button mat-flat-button (click)="ocultar()">Cancelar</button>
+                <button mat-flat-button (click)="putNoticia()" color="primary"
+                    [disabled]="myForm.invalid || !myForm.dirty" cdkFocusInitial>Editar</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+
+    <br>
+    <table>
+        <tr>
+            <th>Titulo</th>
+            <th>Fuente</th>
+            <th>Contenido</th>
+            <th>Imagen</th>
+            <th>Secciones</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let item of noticias">
+            <td>{{item.titulo}}</td>
+            <td>{{item.fuente}}</td>
+            <td>{{item.contenido}}</td>
+            <td>{{item.imagenes}}</td>
+            <td>{{item.secciones}}</td>
+            <td>{{item.fecha}}</td>
+            <td>
+                <button (click)="editar(item, item._id)">Editar</button>
+                <button (click)="deleteNoticia(item._id)">Eliminar</button>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+<div style="background:#EBEBEB;">
+  <br><br>
+  <hr>
+  <p style="margin-left:6%; padding-top:50px; color:#3282B8; font-size: 45px;"><b>Últimas Noticias</b></p>
+
+  <div class="content">
+    <div *ngFor="let noticia of noticias" class="post" [routerLink]="['/',noticia._id]">
+      <div class="image">
+        <img [src]="noticia.imagenes" />
+      </div>
+      <div class="info">
+        <p style="padding-bottom: 10px; color: #3282b8;">{{noticia.secciones}}</p>
+        <p style="font-size: 21px; margin-bottom: 15px; color: #252525;"><a><b>{{noticia.titulo}}</b></a></p>
+        <hr class="hrPost">
+      </div>
+      <ul>
+        <li>por {{noticia.fuente}}</li>
+        <li>{{noticia.fecha}}</li>
+      </ul>
+    </div>
+  </div>
